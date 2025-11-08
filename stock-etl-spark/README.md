@@ -1,3 +1,7 @@
+## 🎥 Demo
+[▶ Watch Demo Video](https://drive.google.com/file/d/1j8B3nDIbdbNRt1UHYi7dn9y52gf0sqRE/view?usp=sharing)
+---
+
 # 🧠 Project Overview: Stock ETL and Spark Analytics
 
 This project demonstrates an end-to-end data pipeline integrating **SQL**, **NoSQL**, and **Apache Spark** for large-scale stock analysis and interactive visualization.
@@ -47,9 +51,3 @@ This project demonstrates an end-to-end data pipeline integrating **SQL**, **NoS
 | Backend | Flask | API and web interface |
 | Frontend | HTML / JS | Interactive display |
 | Version Control | Git + Git LFS | Handles code & large demo video files |
-
----
-
-## 🎥 Demo
-[▶ Watch Demo Video](https://drive.google.com/file/d/1j8B3nDIbdbNRt1UHYi7dn9y52gf0sqRE/view?usp=sharing)
-
