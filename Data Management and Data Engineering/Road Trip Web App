@@ -1,0 +1,124 @@
+# 🗺️ US Road Trip Planner Web App
+
+An interactive, multi-page road-trip planning app that helps a group of travelers choose the best route, cities, and attractions across the United States.
+
+The app is backed by a full ETL pipeline: we **extract**, **clean**, and **load** all location and rating data before it is used in any page of the application.
+
+---
+
+## 🚀 Core Features
+
+- **Multi-page interactive web app**
+  - Multiple tabs/pages (Overview, City Explorer, Map, Ranking, Itinerary, etc.).
+  - Each page has dynamic outputs (tables, maps, plots) that respond to user inputs.
+  - Some elements redirect users to other pages in the app or to external links (e.g., Google Maps / Yelp) for more details.
+
+- **Predefined multi-city route**
+  - Fixed route across several US cities (e.g., New York, Philadelphia, Pittsburgh, Roswell, Tucson, Malibu, Santa Monica, etc.).
+  - City cards showing high-level stats: number of attractions, average rating, etc.
+
+- **Interactive attraction map**
+  - Map with clickable markers for each attraction.
+  - Filter by city, category, rating, and/or price range.
+  - Clicking a marker shows details and can redirect to external pages (e.g., official site, map directions).
+
+- **Ranking & comparison dashboard**
+  - Sortable tables that rank attractions by rating, popularity, or custom score.
+  - City-to-city comparison (number of attractions, average rating, etc.).
+  - Interactive controls that update outputs without reloading the page.
+
+- **Group itinerary builder**
+  - Select attractions and add them to a shared itinerary.
+  - See the final list of stops per city with summary metrics (count, time, rough cost).
+  - Buttons/links to jump between itinerary and other pages for refinement.
+
+- **Data-driven backend (with ETL)**
+  - All data is generated through an ETL pipeline before the app runs.
+  - Cleaned data is stored in a structured format (database or processed CSVs).
+  - The app never directly uses raw API/CSV responses.
+
+---
+
+## 🧱 Tech Stack
+
+> Adjust this section to match your actual setup.
+
+- **Frontend / App**
+  - R [`shiny`](https://shiny.posit.co/) for the interactive multi-page web app  
+  - `shinydashboard`, `bslib` or similar for layout and theming  
+  - `leaflet` for maps, `plotly`/`ggplot2` for charts
+
+- **Data / ETL**
+  - R (`tidyverse`, `httr`, `jsonlite`, etc.) for ETL scripts
+  - External APIs (e.g., Yelp / Google Places) or curated CSV datasets
+  - SQL database (PostgreSQL / SQLite) **or** processed RDS/CSV files as the data source
+
+- **Database Connectivity**
+  - `DBI` + `RPostgres` / `RSQLite` to connect to the database
+
+---
+
+## 🧬 ETL Pipeline Overview
+
+All data used in the app flows through a reproducible ETL pipeline:
+
+1. **Extract**
+   - Call APIs or read raw CSV/JSON files.
+   - Save raw data to `data/raw/`.
+
+2. **Transform**
+   - Clean text fields, standardize categories, and handle missing values.
+   - Remove duplicates and invalid coordinates.
+   - Engineer features such as:
+     - City-level stats (avg rating, # attractions)
+     - Custom ranking scores (e.g., rating × review_count)
+   - Save outputs to `data/processed/`.
+
+3. **Load**
+   - Create database tables using SQL scripts (`sql/create_tables.sql`), or write processed files.
+   - Load the final tables into the database / data store used by the app.
+   - All app pages read from these processed tables, not from raw data.
+
+---
+
+## 🧭 App Pages & Navigation
+
+> The app is designed as a **multi-page** experience. Below is the typical flow.
+
+1. **Home / Overview Page**
+   - Short description of the road trip and route.
+   - Summary cards (number of cities, total attractions, average rating).
+   - Navigation buttons to jump to City Explorer, Map, Ranking, or Itinerary.
+
+2. **City Explorer Page**
+   - Dropdown or clickable cards to select a city.
+   - Dynamic outputs:
+     - City info panel (high-level stats).
+     - Table of attractions in that city.
+   - Clicking an attraction can:
+     - Show details within the same page.
+     - Redirect to a **Details / Map page** or open an **external link**.
+
+3. **Map Page**
+   - Interactive map showing all or filtered attractions.
+   - Filters: city, category, rating range, etc.
+   - Marker popups:
+     - Show attraction info.
+     - Include links that redirect to external websites (e.g., Google Maps, Yelp) in a new tab.
+
+4. **Ranking / Voting Page**
+   - Ranking tables where users can sort by rating, popularity, or custom score.
+   - Optional voting/favoriting interactions:
+     - Clicking a “Select” or “Add to Itinerary” button updates the itinerary page.
+   - Redirection:
+     - Buttons/links to navigate to the Map or Itinerary pages for further exploration.
+
+5. **Itinerary / Summary Page**
+   - Displays attractions that the group has selected along the route.
+   - Shows totals per city and overall.
+   - Controls to:
+     - Remove or reorder stops.
+     - Redirect back to City Explorer or Map to adjust choices.
+
+---
+\
