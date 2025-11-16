@@ -1,4 +1,4 @@
-# portfolio
+# Portfolio
 # 👋 Hi, I'm Peng Yan
 M.S. in Applied Analytics @ Columbia University  
 Data Scientist | Machine Learning | Data Engineering | Analytics Strategy
