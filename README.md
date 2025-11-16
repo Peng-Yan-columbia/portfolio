@@ -16,7 +16,7 @@ Welcome to my **Data Analytics Portfolio**, showcasing selected academic, profes
 
 ---
 
-### 💹 [Stock ETL Pipeline with Spark](.Data Management and Data Engineering/stock-etl-spark)
+### 💹 [Stock ETL Pipeline with Spark](./Data Management and Data Engineering/stock-etl-spark)
 - Developed a multi-database data pipeline (PostgreSQL + MongoDB + PySpark)  
 - Automated daily computation of high-frequency financial metrics  
 - Tools: Spark, SQL, MongoDB, Python
