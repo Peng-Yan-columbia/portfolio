@@ -30,7 +30,7 @@ Welcome to my **Data Analytics Portfolio**, showcasing selected academic, profes
 
 ---
 
-### 🚐 [Interactive Road Trip Shiny App](./Data%20Management%20and%20Data%20Engineering/roadtrip-shiny-app)
+### 🚐 [Interactive Road Trip Shiny App](./Data%20Management%20and%20Data%20Engineering/Road%20Trip%20Web%20App)
 - Created an interactive travel dashboard to rank U.S. movie-themed locations  
 - Includes custom CSS design and user-input ranking modules  
 - Tools: R, Shiny, Plotly, HTML/CSS
