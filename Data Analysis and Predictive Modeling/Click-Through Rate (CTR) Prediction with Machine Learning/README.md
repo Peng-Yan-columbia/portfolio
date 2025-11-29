@@ -55,9 +55,9 @@ Because CTR has many zeros and a small subset of positive values, I used a **two
   **Predicted CTR value (conditional on CTR > 0)**
 
 ### **Final CTR Prediction**
-\[
-\text{Final CTR} = P(\text{non-zero}) \times \widehat{CTR}_{\text{positive}}
-\]
+$$
+\text{Final CTR} = P(\text{non-zero}) \cdot \hat{CTR}_{positive}
+$$
 
 This embedding (hurdle-style) model improves performance by:
 - Separating classification of engagement from continuous CTR magnitude  
@@ -75,7 +75,7 @@ This embedding (hurdle-style) model improves performance by:
 ---
 
 ## 🚀 5. Kaggle Submission
--ranked 17th in public and 19th in private.
+- ranked 17th in public and 19th in private.
 https://www.kaggle.com/competitions/predicting-clicks/leaderboard?
 - Generated predictions for the scoring dataset using the final embedding model.
 - Formatted results into `submission.csv`.
