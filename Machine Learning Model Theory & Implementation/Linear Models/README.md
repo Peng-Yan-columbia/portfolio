@@ -14,7 +14,7 @@ $$
 
 ### Why this matters:
 
-- \(X\) and \(X^\top X\) share the **same null space**.
+-$$ \(X\)$$ and \(X^\top X\) share the **same null space**.
 - If \(Xv = 0\), then \(X^\top X v = 0\).
 - If \(X^\top X v = 0\), then:
 
