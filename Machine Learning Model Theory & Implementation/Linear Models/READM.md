@@ -1,74 +1,88 @@
 # Linear Algebra Foundations & Pseudoinverse-Based Linear Modeling
 
-This project demonstrates two core achievements in classical machine learning theory and implementation:
+This project demonstrates two core achievements in classical machine learning theory and numerical linear algebra.
 
 ---
 
 ## 🚀 1. Proving a Fundamental Rank Identity in Linear Models
 
-I show that for any real matrix \(X\):
+I demonstrate the important result:
 
-\[
-\mathrm{rank}(X) = \mathrm{rank}(X^\top X)
-\]
+$$
+\text{rank}(X) = \text{rank}(X^\top X)
+$$
 
-This result is essential in understanding why linear regression works even when solving the normal equations:
+### Why this matters:
 
-\[
-X^\top X \, \beta = X^\top y
-\]
+- \(X\) and \(X^\top X\) share the **same null space**.
+- If \(Xv = 0\), then \(X^\top X v = 0\).
+- If \(X^\top X v = 0\), then:
 
-Key insights established:
+$$
+v^\top X^\top X v = \|Xv\|^2 = 0 \quad \Rightarrow \quad Xv = 0
+$$
 
-- \(X\) and \(X^\top X\) share the **same null space**, which implies equal rank via the **rank–nullity theorem**.
-- The matrix \(X^\top X\) cannot reduce the dimensionality of the problem; it preserves the effective information contained in \(X\).
-- This property justifies using \(X^\top X\) in theoretical derivations (e.g., least squares, projection operators, identifiability).
+Since they share the same null space, they have identical nullity, and therefore the same rank (via the rank–nullity theorem).
+
+This explains why the normal-equation matrix \(X^\top X\) preserves the information content of \(X\).
 
 ---
 
 ## 🧮 2. Implementing the Moore–Penrose Pseudoinverse via SVD
 
-I implemented a custom function `pinv()` using the singular value decomposition (SVD):
+I implemented a custom pseudoinverse function using the singular value decomposition:
 
-- Performs full SVD:  
-  \[
-  X = U \Sigma V^\top
-  \]
-- Inverts only non-zero singular values.
-- Constructs the pseudoinverse:  
-  \[
-  X^+ = V \Sigma^+ U^\top
-  \]
+$$
+X = U \Sigma V^\top
+$$
 
-This mirrors the method used in numerical linear algebra libraries, but coded manually to demonstrate understanding.
+The pseudoinverse is constructed by inverting only the non-zero singular values:
+
+$$
+X^{+} = V \Sigma^{+} U^\top
+$$
+
+This reproduces the behavior of numerical linear algebra libraries while showing full control of the underlying math.
 
 ---
 
-## 📈 3. Building a Linear Regression Solver That Works Even When \(X^\top X\) Is Singular
+## 📈 3. Linear Regression Using the Pseudoinverse
 
-Using `pinv()`, I built a fully functional linear regression routine that:
+The regression coefficients are computed using:
 
-- Computes coefficients using  
-  \[
-  \hat{\beta} = X^+ y
-  \]
-- Produces fitted values and residuals.
-- Works reliably in cases where:
+$$
+\hat{\beta} = X^{+} y
+$$
 
-  - Columns of \(X\) are collinear  
-  - The system is underdetermined (more features than observations)  
-  - The normal equations have **no standard inverse**
+The fitted values:
 
-This approach reproduces the minimum-norm least-squares solution used in high-dimensional regression and modern ML models.
+$$
+\hat{y} = X \hat{\beta}
+$$
+
+The residuals:
+
+$$
+r = y - \hat{y}
+$$
+
+Because this relies on the SVD-based pseudoinverse, the method works even when:
+
+- \(X^\top X\) is **singular**
+- Columns of \(X\) are **collinear**
+- The system is **underdetermined**
+- The design matrix is **high-dimensional**
+
+This yields the **minimum-norm least-squares solution** used widely in modern ML.
 
 ---
 
 ## 🎯 What This Project Demonstrates
 
-- Mastery of key linear algebra concepts behind machine learning.
-- Ability to prove structural properties of matrices used in statistical models.
-- Ability to build numerical algorithms from scratch (SVD → pseudoinverse → regression).
-- Practical understanding of how to solve linear models in singular, ill-conditioned, or high-dimensional settings.
+- Strong understanding of linear algebra foundations in ML.
+- Ability to prove matrix identities relevant to regression.
+- Ability to implement numerical algorithms (SVD → pseudoinverse → regression).
+- Practical skill in solving linear models when standard OLS fails.
 
 ---
 
@@ -76,16 +90,5 @@ This approach reproduces the minimum-norm least-squares solution used in high-di
 
 - Proof of the rank identity  
 - Custom pseudoinverse implementation  
-- Linear regression function using SVD-based pseudoinverse  
-- Example fits, residual calculation, and validation  
-
----
-
-If you’d like, I can also help you write:
-
-✅ A README for the entire folder (“Machine Learning Model Theory”)  
-✅ A unified summary for OLS, LASSO, Kalman filter, etc.  
-✅ Clean naming or restructuring for your GitHub repo  
-
-Just tell me — I’d be thrilled to help polish the whole thing!
-
+- Regression solver based on SVD  
+- Computation of fitted coefficients, predictions, and residuals  
