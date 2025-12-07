@@ -4,9 +4,9 @@ This project demonstrates two core achievements in classical machine learning th
 
 ---
 
-## 🚀 1. Proving a Fundamental Rank Identity in Linear Models
+## 1. Proving a Fundamental Rank Identity in Linear Models
 
-I demonstrate the important result:
+We establish the important result:
 
 $$
 \text{rank}(X) = \text{rank}(X^\top X)
@@ -14,16 +14,18 @@ $$
 
 ### Why this matters:
 
-- \(X\) and \(X^\top X\) share the same null space.
+- The matrix X and the matrix (X transpose times X) share the same null space.
+
+- If X * v = 0, then:
 
 $$
-Xv = 0 \quad \Rightarrow \quad X^\top X v = 0
+X^\top X \, v = 0
 $$
 
-- If \(X^\top X v = 0\), then:
+- If (X transpose X) * v = 0, then:
 
 $$
-v^\top X^\top X v = \| Xv \|^2 = 0
+v^\top X^\top X \, v = \| Xv \|^2 = 0
 $$
 
 which implies:
@@ -32,18 +34,11 @@ $$
 Xv = 0
 $$
 
-
-$$
-v^\top X^\top X v = \|Xv\|^2 = 0 \quad \Rightarrow \quad Xv = 0
-$$
-
-Since they share the same null space, they have identical nullity, and therefore the same rank (via the rank–nullity theorem).
-
-This explains why the normal-equation matrix \(X^\top X\) preserves the information content of \(X\).
+Because both matrices have the same null space, they have the same nullity, and therefore the same rank (by the rank–nullity theorem). This explains why the normal-equation matrix (X transpose X) preserves the full information content of X.
 
 ---
 
-## 🧮 2. Implementing the Moore–Penrose Pseudoinverse via SVD
+## 2. Implementing the Moore–Penrose Pseudoinverse via SVD
 
 I implemented a custom pseudoinverse function using the singular value decomposition:
 
@@ -57,53 +52,53 @@ $$
 X^{+} = V \Sigma^{+} U^\top
 $$
 
-This reproduces the behavior of numerical linear algebra libraries while showing full control of the underlying math.
+This mirrors the numerical method used in scientific computing libraries and demonstrates full understanding of the underlying linear algebra.
 
 ---
 
-## 📈 3. Linear Regression Using the Pseudoinverse
+## 3. Linear Regression Using the Pseudoinverse
 
-The regression coefficients are computed using:
+The regression coefficients are computed as:
 
 $$
 \hat{\beta} = X^{+} y
 $$
 
-The fitted values:
+Fitted values:
 
 $$
 \hat{y} = X \hat{\beta}
 $$
 
-The residuals:
+Residuals:
 
 $$
 r = y - \hat{y}
 $$
 
-Because this relies on the SVD-based pseudoinverse, the method works even when:
+Because this procedure uses the SVD-based pseudoinverse, it remains valid even when:
 
-- \(X^\top X\) is **singular**
-- Columns of \(X\) are **collinear**
-- The system is **underdetermined**
-- The design matrix is **high-dimensional**
+- (X transpose X) is singular  
+- the columns of X are collinear  
+- the system is underdetermined  
+- the number of features exceeds the number of observations  
 
-This yields the **minimum-norm least-squares solution** used widely in modern ML.
-
----
-
-## 🎯 What This Project Demonstrates
-
-- Strong understanding of linear algebra foundations in ML.
-- Ability to prove matrix identities relevant to regression.
-- Ability to implement numerical algorithms (SVD → pseudoinverse → regression).
-- Practical skill in solving linear models when standard OLS fails.
+This produces the minimum-norm least-squares solution commonly used in high-dimensional regression.
 
 ---
 
-## 📁 Included Components
+## What This Project Demonstrates
+
+- Strong understanding of linear algebra foundations of ML  
+- Ability to prove important matrix identities  
+- Ability to implement numerical linear algebra algorithms from scratch  
+- Practical skill in fitting linear models when ordinary least squares fails  
+
+---
+
+## Included Components
 
 - Proof of the rank identity  
-- Custom pseudoinverse implementation  
-- Regression solver based on SVD  
-- Computation of fitted coefficients, predictions, and residuals  
+- Manual SVD-based pseudoinverse implementation  
+- Linear regression solver using the pseudoinverse  
+- Computation of coefficients, predictions, and residuals  
