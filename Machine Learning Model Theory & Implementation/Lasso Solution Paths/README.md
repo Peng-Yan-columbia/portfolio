@@ -1,94 +1,83 @@
-# LASSO Solution Path via Coordinate Descent & Simulation Validation
+# LASSO Solution Path via Coordinate Descent and Model Validation
 
-This project demonstrates the ability to implement the full LASSO solution path from scratch using cyclic coordinate descent, apply algorithmic optimizations for computational efficiency, and validate the implementation against the industry-standard `glmnet` package.
+This project showcases the full implementation of the LASSO solution path from scratch using cyclic coordinate descent, along with validation against the benchmark glmnet package.
 
 ---
 
-## 🚀 1. Implementing the LASSO Solution Path via Cyclic Coordinate Descent
+## 1. Implementing the LASSO Solution Path
 
-I implemented a complete LASSO solver that computes the coefficient path for a sequence of regularization values \( \lambda \).
-
-The algorithm optimizes:
+The goal is to compute the LASSO coefficient path across a sequence of regularization parameters (lambda values). The objective minimized is:
 
 $$
-\min_{\beta} \; \frac{1}{2N} \| y - X\beta \|_2^2 + \lambda \|\beta\|_1
+\frac{1}{2N} \| y - X\beta \|_2^2 + \lambda \|\beta\|_1
 $$
 
 ### Key achievements:
 
 - Implemented **cyclic coordinate descent**, updating one coefficient at a time.
-- Used the **soft-thresholding operator** for the coordinate update:
+- Used the **soft-thresholding operator** for each coordinate update:
 
 $$
-\beta_j \leftarrow S\!\left( \frac{1}{N} X_j^\top \left( y - X_{-j}\beta_{-j} \right), \lambda \right),
+S(z, \lambda) = \text{sign}(z) \cdot \max(|z| - \lambda, 0)
 $$
 
-where
+- Computed the full solution path for a grid of lambda values.
+- Added major **speed improvements**:
+  - Precomputed X_j^T y for every column j.
+  - Precomputed inner products X_j^T X_k.
+  - Avoided recomputing full residuals inside the loop.
 
-$$
-S(z, \lambda) = \text{sign}(z) \cdot \max(|z| - \lambda, 0).
-$$
-
-- Computed the **full solution path** across a grid of \( \lambda \) values.
-- Implemented the **speedup via precomputation**:
-
-  - Stored \( X_j^\top X_j \) and \( X_j^\top y \) for all coordinates.
-  - Avoided repeatedly recomputing residuals or dot-products.
-
-These enhancements significantly reduce computation time and match the optimization strategy used in `glmnet`.
+These optimizations replicate the approach used in glmnet and dramatically accelerate convergence.
 
 ---
 
-## 🧪 2. Simulating Data from a Known Linear Model
+## 2. Simulating Data From a Known Linear Model
 
-To test the correctness of the implementation, I generated synthetic data from a known sparse linear model:
+To validate the implementation, I generated a synthetic dataset of 1000 observations from a linear model with known coefficients:
 
 $$
-y = 3x_1 - 2x_4 + x_7 + \epsilon,
+y = 3x_1 - 2x_4 + x_7 + \epsilon
 $$
 
-with noise \( \epsilon \sim N(0, 1) \), and \( N = 1000 \) samples.
+where epsilon is Gaussian noise.
 
-### Achievements:
+### Achievements in this step:
 
-- Created controlled data with known ground-truth coefficients.
-- Ensured reproducibility via a random seed.
-- Generated predictors and response variables consistent with the theoretical model.
-
----
-
-## 📈 3. Verifying the Solution Path Against `glmnet`
-
-I compared my cyclic coordinate descent solution path with the path produced by the `glmnet` package (Hastie, Tibshirani, Friedman).
-
-### Results:
-
-- Both solution paths matched (up to numerical tolerance).
-- Demonstrated that the custom implementation:
-  - Correctly performs soft-thresholding updates.
-  - Handles shrinking of coefficients as \( \lambda \) increases.
-  - Produces the same sparsity pattern as `glmnet`.
-  - Tracks coefficient evolution across the entire regularization path.
-
-This confirms that the coordinate-descent implementation is correct and follows the same algorithmic principles used in state-of-the-art software.
+- Created data with a controlled sparse coefficient pattern.
+- Ensured reproducibility with a fixed random seed.
+- Used the simulated dataset to test whether the algorithm correctly recovers the coefficient path as lambda varies.
 
 ---
 
-## 🎯 What This Project Demonstrates
+## 3. Verifying the Solution Path Against glmnet
 
-- Ability to implement the LASSO from first principles.
-- Understanding of coordinate descent optimization for \( L_1 \)-regularized models.
-- Use of efficient computation strategies (precomputed cross-products).
-- Ability to generate synthetic datasets from a known model.
-- Validation of algorithmic correctness by comparison with `glmnet`.
+The glmnet package (Hastie, Tibshirani, Friedman) is a widely accepted implementation of coordinate descent for LASSO.
+
+### Validation results:
+
+- The coefficient paths produced by my implementation match those of glmnet (up to numerical tolerance).
+- The shrinkage behavior, sparsity pattern, and coefficient trajectories match exactly.
+- This confirms that:
+  - The coordinate descent updates were implemented correctly.
+  - The soft-thresholding operator behaves as expected.
+  - The precomputation speedup matches the design of glmnet.
 
 ---
 
-## 📁 Included Components
+## What This Project Demonstrates
 
-- Full cyclic coordinate descent implementation
-- Precomputation-based speed improvement
-- LASSO solution path generator across a sequence of \( \lambda \)
-- Simulation of a known linear model
-- Side-by-side comparison with `glmnet` solution paths
+- Ability to implement LASSO from first principles.
+- Understanding of coordinate descent optimization for L1-regularized models.
+- Ability to generate synthetic data tailored to model evaluation.
+- Skill in validating algorithms against industry-standard implementations.
+- Practical understanding of sparsity, regularization paths, and numerical optimization.
 
+---
+
+## Included Components
+
+- Coordinate descent LASSO solver  
+- Efficient implementation using precomputed quantities  
+- Full solution path across lambda values  
+- Simulation of a sparse linear model  
+- Side-by-side comparison with glmnet path results  
