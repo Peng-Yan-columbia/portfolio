@@ -9,7 +9,7 @@ Welcome to my **Data Analytics Portfolio**, showcasing selected academic, profes
 
 ## 🚀 Featured Projects
 
-### 🧘 [Heatwise Yoga Customer LTV Model](./heatwise-ltv-model)
+### 🧘 [Heatwise Yoga Customer LTV Model](./Heatwise%20LTV%20analysis%20and%20Retain%20Prediction%20Model)
 - Built a retention and LTV model using customer transaction and check-in data  
 - Applied RFM segmentation, mixed-effects regression, and cohort analysis  
 - Tools: Python (pandas, statsmodels, matplotlib), Tableau
