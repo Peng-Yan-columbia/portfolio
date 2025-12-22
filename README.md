@@ -23,7 +23,7 @@ Welcome to my **Data Analytics Portfolio**, showcasing selected academic, profes
 
 ---
 
-### 📈 [Click-Through Rate Prediction](./ctr-prediction-model)
+### 📈 [Click-Through Rate Prediction](./Data%20Analysis%20and%20Predictive%20Modeling/Click-Through%20Rate%20(CTR)%20Prediction%20with%20Machine%20Learning)
 - Trained and tuned XGBoost classifier using Optuna cross-validation  
 - Added SHAP analysis for feature interpretability  
 - Tools: XGBoost, scikit-learn, Optuna, matplotlib
